@@ -22,17 +22,16 @@ import br.com.wl.model.ListaCafe;
 import br.com.wl.service.ListaCafeService;
 
 @RestController
-@RequestMapping(value ="/cafe", produces = "application/json")
+@RequestMapping(value ="/api/cafe", produces = "application/json")
 public class ListaCafeController {
 
 	@Autowired
 	private ListaCafeService listaCafeService;
 	 
 	@GetMapping 
-	public ResponseEntity<List<ListaCafeDTO>> consultar(){
+	public ResponseEntity<List<ListaCafe>> consultar(){
 		List<ListaCafe> listaCafe = listaCafeService.consultar();
-		List<ListaCafeDTO> listaCafeDto = listaCafe.stream().map(x -> new ListaCafeDTO(x)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listaCafeDto);
+		return ResponseEntity.ok().body(listaCafe);
 	}
 	
 	@GetMapping(value = "/{id}")

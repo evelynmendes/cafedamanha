@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ColaboradorService {
 
-	@Autowired
+
 	private final ColaboradorRepository colaboradorRepository;
 
 	public List<Colaborador> consultar() {

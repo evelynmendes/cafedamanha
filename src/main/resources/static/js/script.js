@@ -1,18 +1,20 @@
-$(document).ready(function () {
-	
-	$(#onload).onload(function (e) {
-		$.get('https://locahost:8080/cafe/consultar',$(this).serialize(), function (lista){
-			$('tabela_itens').last().append(
-				'<tr>' +
-				  '<td>' + ${lista.id} + '</td>' +
-		          '<td>' + ${lista.colaborador} + '</td>' +
-		          '<td>' + ${lista.nome_item} + '</td>' +	
-				'</tr>'
-			);
-		
+$(function() {
+
+	carregarItens();
+
+	function carregarItens() {
+		$.getJSON("/api/cafe", function(dados) {
+			$(dados).each(function(index) {
+				$('#tabela_itens').append('<tr><td>' + index.id + '</td>'
+					+ '<td>' + index.coloborador_id + '<td>'
+					+ index.nome_item + '</td></tr>')
+			});
 		});
-		
-		clearInputs();
-		e.preventDefault();
-	});
+	}
+
 });
+
+$.getJSON('cafe', 
+			(response) => {
+				console.log(response)
+			})

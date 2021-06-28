@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ColaboradorDTO {
 
+	
 	@NotBlank
 	@Pattern(regexp = "^([0-9]{11})$")
 	private String cpf;

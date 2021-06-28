@@ -31,22 +31,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequestMapping(value = "/colaboradores", produces = "application/json")
+@RequestMapping(value = "/api/colaboradores", produces = "application/json")
 @RestController
 @RequiredArgsConstructor
 public class ColaboradorController {
 
-	@Autowired
 	private final ColaboradorService colaboradorService;
 
 	Logger logger = Logger.getLogger(ColaboradorRepository.class);
 
 	@GetMapping
-	public ResponseEntity<List<ColaboradorDTO>> consultar() {
+	public ResponseEntity<List<Colaborador>> consultar() {
 		List<Colaborador> colaborador = colaboradorService.consultar();
-		List<ColaboradorDTO> colaboradorDto = colaborador.stream().map(x -> new ColaboradorDTO(x))
-				.collect(Collectors.toList());
-		return ResponseEntity.ok().body(colaboradorDto);
+		return ResponseEntity.ok().body(colaborador);
 	}
 
 	@GetMapping(value = "/{id}")
