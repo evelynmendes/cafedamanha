@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Wl-Home</title>
+	
+	<meta charset="utf-8">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/estilo.css">
+</head>
+
+<body id="#onload">
+
+	<div class="topo">
+		<img src = "/imagens/logo.png" width = "20" height = "20">
+		<h2>Bom dia!!</h2>
+	</div>
+	<br>
+	<div class="menu">
+		<a href="/">Home</a>|
+		<a href="/page/cadastrar.html">Cadastrar</a>|
+	</div>
+
+	<div id="corpo">
+		<h4>Lista de café da manhã </h4>
+		<hr>
+	</div>
+	<div id="tabela_itens">
+		<table class="table">
+      		<thead class="thead-dark">
+	        <tr>
+	          <th>#</th>
+	          <th>Colaborador</th>
+	          <th>Item</th>
+	        </tr>
+	      </thead>
+	
+	      <tbody>
+	      	<c:foreach itens="${lista_itens}" var="cafe">
+		        <tr>
+		          <td>${lista.id}</td>
+		          <td>${lista.colaborador}</td>
+		          <td>${lista.nome_item}</td>
+		        </tr>
+		    </c:foreach>
+	     </tbody>
+	</div>
+	
+
+<script src = "/js/script.js"></script>
+<script src = "/js/jquery.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+body {
+	background-color: white;
+	color: white;
+	font-family: cursive;
+	background-position: center;
+
+}
+
+.topo {
+	position: relative;
+	opacity: 0.6;
+	height: 150px;
+	width: 600px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	background: url('/imagens/cafe_da_manha.jpg');
+	font-family: cursive;
+	font-size: 20px left;
+	color: black;
+	margin: auto;
+}
+
+.menu {
+	background: black;
+	color: #7F00FF;
+	font-family: sans-serif;
+	font-weight: bold;
+	padding: 10px;
+	width: 600px;
+	margin: auto;
+}
+
+a:link {
+	font-weight: bold;
+	color: #7F00FF;
+	text-decoration: none;
+	padding: 5px;
+}
+
+a:visited {
+	font-weight: bold;
+	color: #7F00FF;
+	text-decoration: none;
+	padding: 5px;
+}
+
+a:hover {
+	font-weight: bold;
+	color: #c26cc2;
+	text-decoration: none;
+	padding: 5px;
+}
+
+a:active {
+	font-weight: bold;
+	background-color: #222222;
+	color: #c26cc2;
+	text-decoration: none;
+	padding: 5px;
+}
+
+#corpo {
+	background: white;
+	color: black;
+	font-family: sans-serif;
+	font-weight: bold;
+	width: 600px;
+	padding-top: 10px;
+	text-align: justify;
+	margin: auto;
+}
+
+#tabela_itens {
+	background: white;
+	color: black;
+	font-family: sans-serif;
+	font-weight: bold;
+	width: 600px;
+	margin: auto;
+}
+
+p{
+	padding: 5px;
+	text-align: justify;
+}
+
+#foto {
+	background: #3CB371;
+	color: black;
+	font-family: sans-serif;
+	font-weight: bold;
+	width: 580px;
+	padding: 10px;
+	text-align: center;
+}
+
+#imagem{
+	width: 230px;
+	height: 220px;
+	border: 10px ridge gray;
+}
+
