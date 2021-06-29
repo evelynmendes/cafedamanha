@@ -31,7 +31,7 @@ public class ProdutoService {
 				.of(produtoRepository.consultarPorId(id).orElseThrow(() -> new RuntimeException("Not Found")));
 		return colaborador;
 	}
-
+	
 	public Optional<Produto> consultarPorItem(String nomeItem) {
 		final Optional<Produto> colaborador = Optional
 				.of(produtoRepository.consultarPorItem(nomeItem).orElseThrow(() -> new RuntimeException("Not Found")));
@@ -42,9 +42,10 @@ public class ProdutoService {
 		Colaborador colaborador = colaboradorRepository.consultarPorId(produtoDTO.getIdColaborador())
 				.orElseThrow(() -> new RuntimeException("Colaborador Not Found"));
 
-		produtoRepository.consultarPorItem(produtoDTO.getNomeItem().toUpperCase()).ifPresent(p -> {
-			throw new RuntimeException("Already saved");
-		});
+		produtoRepository.consultarPorItem(produtoDTO.getNomeItem().toUpperCase())
+				.ifPresent(p -> {
+					throw new RuntimeException("Already saved");
+				});
 
 		colaborador.setId(colaborador.getId());
 		colaborador.setNome(colaborador.getNome());
