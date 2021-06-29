@@ -61,6 +61,7 @@ function carregar_produtos(id) {
             $('#tabela_itens').append('<tr>');
             $('#tabela_itens').append('<td>' + colaborador.lista[i].id + '</td>');
             $('#tabela_itens').append('<td>' + colaborador.lista[i].nomeItem + '</td>');
+            $('#tabela_itens').append('<td>' + colaborador.lista[i].cpf + '</td>');
             $('#tabela_itens').append('<td><button class="btn btn-outline-primary btn-sm" onclick="atualizar_produto('+ colaborador.lista[i].id + ')">Atualizar</button></td>');
             $('#tabela_itens').append('<td><button class="btn btn-outline-primary btn-sm" onclick="remover_produto(' + colaborador.id + ',' + colaborador.lista[i].id + ')">Remover</button></td>');
             $('#tabela_itens').append('</tr>');
