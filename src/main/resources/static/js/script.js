@@ -7,6 +7,7 @@ function carregar_cafe_da_manha() {
                 $('#tabela_itens').append('<tr>');
                 $('#tabela_itens').append('<td>' + this.id + '</td>');
                 $('#tabela_itens').append('<td>' + this.nome + '</td>');
+                $('#tabela_itens').append('<td>' + this.cpf + '</td>');
                 $('#tabela_itens').append('<td>' + this.produtos[i].nomeItem + '</td>');
                 $('#tabela_itens').append('</tr>');
             }
@@ -61,7 +62,6 @@ function carregar_produtos(id) {
             $('#tabela_itens').append('<tr>');
             $('#tabela_itens').append('<td>' + colaborador.lista[i].id + '</td>');
             $('#tabela_itens').append('<td>' + colaborador.lista[i].nomeItem + '</td>');
-            $('#tabela_itens').append('<td>' + colaborador.lista[i].cpf + '</td>');
             $('#tabela_itens').append('<td><button class="btn btn-outline-primary btn-sm" onclick="atualizar_produto('+ colaborador.lista[i].id + ')">Atualizar</button></td>');
             $('#tabela_itens').append('<td><button class="btn btn-outline-primary btn-sm" onclick="remover_produto(' + colaborador.id + ',' + colaborador.lista[i].id + ')">Remover</button></td>');
             $('#tabela_itens').append('</tr>');
