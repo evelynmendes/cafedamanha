@@ -32,9 +32,9 @@ public class Colaborador {
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "colaborador_id")
-	private List<Produto> lista;
+	private List<Produto> produtos;
 
 	public List<Produto> getLista() {
-		return Optional.ofNullable(lista).orElseGet(() -> new ArrayList<Produto>());
+		return Optional.ofNullable(produtos).orElseGet(() -> new ArrayList<Produto>());
 	}
 }
