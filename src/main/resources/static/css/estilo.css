@@ -74,6 +74,9 @@ a:active {
 }
 
 #formulario{
+	background: white;
+	color: black;
+	padding: 10px;
 	width: 450px;
 	margin: auto;
 }

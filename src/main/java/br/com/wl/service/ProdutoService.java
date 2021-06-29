@@ -21,7 +21,7 @@ public class ProdutoService {
 	private final ColaboradorRepository colaboradorRepository;
 	private final ProdutoRepository repository;
 
-	public List<Produto> consultar() {
+	public List<Produto> listar() {
 		List<Produto> listaCafe = repository.listarProdutos();
 		return listaCafe;
 	}
@@ -58,7 +58,7 @@ public class ProdutoService {
 		Produto produto = Optional.ofNullable(repository.buscarProdutoPorId(id))
 				.orElseThrow(() -> new RuntimeException("Not Found"));
 
-		produto.setNomeItem(produtoDTO.getNomeItem());
+		produto.setNomeItem(produtoDTO.getNomeItem().toUpperCase());
 		return repository.atualizarProduto(produto);
 	}
 
