@@ -11,18 +11,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class WebController {
 
 	@GetMapping
-	public String index() {
+	public String home() {
 		return "home";
 	}
 
 	@GetMapping("/colaboradores")
 	public String colaboradores() {
-		return "/colaboradores";
+		return "colaboradores";
 	}
 
 	@GetMapping("/colaboradores/{id}")
 	public String produtos(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("colaboradorId",id);
-		return "/produtos";
+		return "produtos";
 	}
+
+
 }
