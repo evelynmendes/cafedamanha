@@ -26,8 +26,5 @@ public class WebController {
 		return "/page/produtos";
 	}
 
-	@GetMapping("/cadastrar")
-	public String cadastrar() {
-		return "/page/cadastrar";
-	}
+
 }
