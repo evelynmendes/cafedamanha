@@ -3,9 +3,9 @@ package br.com.wl.controller;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,40 +20,30 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.wl.dto.ProdutoDTO;
 import br.com.wl.model.Produto;
 import br.com.wl.service.ProdutoService;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping(value ="/api/produto", produces = "application/json")
+@RequestMapping(value ="/api/produtos", produces = "application/json")
+@RequiredArgsConstructor
 public class ProdutoController {
 
-	@Autowired
-	private ProdutoService produtoService;
+	private final ProdutoService produtoService;
 	 
 	@GetMapping 
 	public ResponseEntity<List<Produto>> consultar(){
-		List<Produto> produto = produtoService.consultar();
-		return ResponseEntity.ok().body(produto);
+		List<Produto> listaCafe = produtoService.consultar();
+		return ResponseEntity.ok().body(listaCafe);
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Optional<Produto>> consultarPorId(@PathVariable Integer id) {
-		Optional<Produto> produto = produtoService.consultarPorId(id);
-		return ResponseEntity.ok().body(produto); 
-	}	
-	
-	@GetMapping(value = "/{nomeItem}")
-	public ResponseEntity<Optional<Produto>> consultarPorItem(@PathVariable String nomeItem) {
-		Optional<Produto> produto = produtoService.consultarPorItem(nomeItem);
-		return ResponseEntity.ok().body(produto); 
+		Optional<Produto> listaCafe = produtoService.consultarPorId(id);
+		return ResponseEntity.ok().body(listaCafe); 
 	}	
 	
 	@PostMapping
-	public ResponseEntity<Produto> inserir(@RequestBody ProdutoDTO produtoDto){
-		produtoService.consultarPorItem(produtoDto.getNomeItem())
-				.map(item -> item != null)
-				.filter(Boolean::booleanValue)
-				.orElseThrow(() -> new RuntimeException("Item já cadastrado por outro colaborador"));
-
-		Produto produto = produtoService.inserir(produtoDto);
+	public ResponseEntity<Produto> inserir(@Valid @RequestBody ProdutoDTO produtoDTO){
+		Produto produto = produtoService.inserir(produtoDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}")
 				.buildAndExpand(produto.getId())
@@ -62,18 +52,19 @@ public class ProdutoController {
 	}
 	
 	@PutMapping(value="/{id}")
-	public ResponseEntity<Produto> atualizar(@PathVariable Integer id, @RequestBody ProdutoDTO produtoDto) {
+	public ResponseEntity<Produto> atualizar(@PathVariable Integer id, @RequestBody ProdutoDTO produtoDTO) {
 		
 		return produtoService.consultarPorId(id)
-		           .map(produto -> {
-		        	   produto.setNomeItem(produtoDto.getNomeItem());
-		        	   Produto atualizado = produtoService.atualizar(produto);
+		           .map(listaCafe -> {
+		        	   listaCafe.setNomeItem(produtoDTO.getNomeItem());
+		        	   Produto atualizado = produtoService.atualizar(listaCafe);
 		               return ResponseEntity.ok().body(atualizado);
 		           }).orElse(ResponseEntity.notFound().build());
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Produto> deletar(@PathVariable Integer id){
-		return ResponseEntity.ok().build();		
+	public ResponseEntity<Void> deletar(@PathVariable Integer id){
+		produtoService.deletar(id);
+		return ResponseEntity.noContent().build();
 	}
 }

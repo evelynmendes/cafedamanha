@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ProdutoService {
 
-	
 	private final ProdutoRepository produtoRepository;
 	private final ColaboradorRepository colaboradorRepository;
 
@@ -28,39 +27,43 @@ public class ProdutoService {
 	}
 
 	public Optional<Produto> consultarPorId(Integer id) {
-		final Optional<Produto> produto = Optional
+		final Optional<Produto> colaborador = Optional
 				.of(produtoRepository.consultarPorId(id).orElseThrow(() -> new RuntimeException("Not Found")));
-		return produto;
+		return colaborador;
 	}
-	
+
 	public Optional<Produto> consultarPorItem(String nomeItem) {
-		final Optional<Produto> produto = Optional
+		final Optional<Produto> colaborador = Optional
 				.of(produtoRepository.consultarPorItem(nomeItem).orElseThrow(() -> new RuntimeException("Not Found")));
-		return produto;
+		return colaborador;
 	}
 
 	public Produto inserir(final ProdutoDTO produtoDTO) {
 		Colaborador colaborador = colaboradorRepository.consultarPorId(produtoDTO.getIdColaborador())
 				.orElseThrow(() -> new RuntimeException("Colaborador Not Found"));
 
-		Optional.ofNullable(produtoRepository.consultarPorItem(produtoDTO.getNomeItem().toUpperCase()))
-				.ifPresent(p -> {
-					throw new RuntimeException("Already saved");
-				});
+		produtoRepository.consultarPorItem(produtoDTO.getNomeItem().toUpperCase()).ifPresent(p -> {
+			throw new RuntimeException("Already saved");
+		});
 
+		colaborador.setId(colaborador.getId());
+		colaborador.setNome(colaborador.getNome());
+		colaborador.setCpf(colaborador.getCpf());
 		Produto produto = new Produto();
 		produto.setNomeItem(produtoDTO.getNomeItem().toUpperCase());
 		colaborador.getLista().add(produto);
-		colaborador = colaboradorRepository.atualizar(colaborador);
+		colaboradorRepository.save(colaborador);
+		colaboradorRepository.flush();
 		return colaborador.getLista().stream().filter(item -> item.equals(produto)).findFirst().get();
 	}
 
 	public Produto atualizar(Produto produto) {
-		return produtoRepository.atualizar(produto);
+		produtoRepository.save(produto);
+		return produto;
 	}
 
-	public Produto deletar(Integer id) {
-		return produtoRepository.deletar(id);
+	public void deletar(Integer id) {
+		produtoRepository.deleteById(id);
 	}
 
 }

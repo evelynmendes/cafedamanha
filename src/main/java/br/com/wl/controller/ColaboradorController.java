@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequestMapping(value = "/api/colaborador", produces = "application/json")
+@RequestMapping(value = "/api/colaboradores", produces = "application/json")
 @RestController
 @RequiredArgsConstructor
 public class ColaboradorController {
@@ -52,14 +52,10 @@ public class ColaboradorController {
 		return ResponseEntity.ok().body(colaborador);
 	}
 
-
 	@PostMapping
-	public ResponseEntity<Colaborador> inserir(@Valid @RequestBody ColaboradorDTO colaboradorDto) {
-
-		Colaborador colaborador = colaboradorService.inserir(colaboradorDto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}")
-				.buildAndExpand(colaborador.getId())
+	public ResponseEntity<Colaborador> inserir(@Valid @RequestBody ColaboradorDTO colaboradorDTO) {
+		Colaborador colaborador = colaboradorService.inserir(colaboradorDTO);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(colaborador.getId())
 				.toUri();
 		return ResponseEntity.created(uri).body(colaborador);
 
@@ -78,7 +74,9 @@ public class ColaboradorController {
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<ColaboradorDTO> deletar(@PathParam("id") Integer id) {
-		return ResponseEntity.ok().build();
+	public ResponseEntity<Void> deletar(@PathVariable("id") Integer id) {
+		colaboradorService.deletar(id);
+		return ResponseEntity.noContent().build();
 	}
+
 }

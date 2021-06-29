@@ -15,9 +15,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ColaboradorService {
 
-
 	private final ColaboradorRepository colaboradorRepository;
-	
+
 	public List<Colaborador> consultar() {
 		List<Colaborador> colaborador = colaboradorRepository.consultar();
 		return colaborador;
@@ -30,18 +29,24 @@ public class ColaboradorService {
 	}
 
 	public Colaborador inserir(ColaboradorDTO colaboradorDto) {
+		Optional<Colaborador> busca = colaboradorRepository.consultarPorCPF(colaboradorDto.getCpf());
+
+		busca.ifPresent(c -> {
+			throw new RuntimeException("Colaborador já cadastrado");
+		});
+
 		final Colaborador colaborador = new Colaborador();
 		colaborador.setCpf(colaboradorDto.getCpf());
 		colaborador.setNome(colaboradorDto.getNome());
-		return colaboradorRepository.inserir(colaborador);
+		return colaboradorRepository.save(colaborador);
 	}
 
 	public Colaborador atualizar(Colaborador colaborador) {
-		return colaboradorRepository.atualizar(colaborador);
+		return colaboradorRepository.save(colaborador);
 	}
 
-	public Colaborador deletar(Integer id) {
-		return colaboradorRepository.deletar(id);
+	public void deletar(Integer id) {
+		colaboradorRepository.deleteById(id);
 	}
 
 }

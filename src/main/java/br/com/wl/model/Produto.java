@@ -17,14 +17,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class Produto {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column(name = "nome_item")
 	private String nomeItem;
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
