@@ -63,8 +63,14 @@
 				</tbody>
 			</table>
 		</div>
-
-	</div>
-	<script src="/js/script.js"></script>
+		
+		<input type="hidden" id="colaboradorId" th:value="${colaboradorId}" />
+	
+<script src="/js/script.js"></script>
+<script>
+		$(function() {
+			carregar_produtos($("#colaboradorId").val());
+		});
+	</script>
 </body>
 </html>
