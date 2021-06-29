@@ -3,10 +3,11 @@ function carregar_cafe_da_manha() {
         console.log(dados);
         $.each(dados, function(colaborador) {
             console.log(this);
-            for (let i = 0; i < this.lista.length; i++) {
+            for (var i = 0; i < this.lista.length; i++) {
                 $('#tabela_itens').append('<tr>');
                 $('#tabela_itens').append('<td>' + this.id + '</td>');
                 $('#tabela_itens').append('<td>' + this.nome + '</td>');
+                $('#tabela_itens').append('<td>' + this.cpf + '</td>');
                 $('#tabela_itens').append('<td>' + this.produtos[i].nomeItem + '</td>');
                 $('#tabela_itens').append('</tr>');
             }

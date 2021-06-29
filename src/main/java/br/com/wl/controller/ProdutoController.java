@@ -31,14 +31,14 @@ public class ProdutoController {
 	 
 	@GetMapping 
 	public ResponseEntity<List<Produto>> consultar(){
-		List<Produto> listaCafe = produtoService.consultar();
-		return ResponseEntity.ok().body(listaCafe);
+		List<Produto> produto = produtoService.consultar();
+		return ResponseEntity.ok().body(produto);
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Optional<Produto>> consultarPorId(@PathVariable Integer id) {
-		Optional<Produto> listaCafe = produtoService.consultarPorId(id);
-		return ResponseEntity.ok().body(listaCafe); 
+		Optional<Produto> produto = produtoService.consultarPorId(id);
+		return ResponseEntity.ok().body(produto); 
 	}	
 	
 	@PostMapping
@@ -55,9 +55,9 @@ public class ProdutoController {
 	public ResponseEntity<Produto> atualizar(@PathVariable Integer id, @RequestBody ProdutoDTO produtoDTO) {
 		
 		return produtoService.consultarPorId(id)
-		           .map(listaCafe -> {
-		        	   listaCafe.setNomeItem(produtoDTO.getNomeItem());
-		        	   Produto atualizado = produtoService.atualizar(listaCafe);
+		           .map(produto -> {
+		        	   produto.setNomeItem(produtoDTO.getNomeItem());
+		        	   Produto atualizado = produtoService.atualizar(produto);
 		               return ResponseEntity.ok().body(atualizado);
 		           }).orElse(ResponseEntity.notFound().build());
 	}
