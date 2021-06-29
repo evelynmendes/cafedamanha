@@ -128,7 +128,7 @@ function cadastrar_produto(){
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(produto),
         success: function(result) {
-            alert("Colaborador incluído com sucesso");
+            alert("Produto incluído com sucesso");
             window.location.href = "/colaboradores";
         },
         fail: function(jqXHR, textStatus) {

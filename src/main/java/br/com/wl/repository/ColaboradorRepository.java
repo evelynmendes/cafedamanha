@@ -22,6 +22,8 @@ public class ColaboradorRepository {
     private final EntityManager entityManager;
     private final ProdutoRepository produtoRepository;
 
+     
+    
     public Colaborador buscarColaboradorPorId(Integer id) {
         try {
             log.info("Buscando colaborador por id {}", id);
@@ -83,7 +85,7 @@ public class ColaboradorRepository {
         }
     }
 
-    @Transactional
+    @Transactional 
     public Colaborador inserirColaborador(Colaborador colaborador) {
         log.info("Inserindo colaborador de nome {}", colaborador.getNome());
         colaborador.setId(getColaboradorMaxId() + 1);
@@ -94,7 +96,7 @@ public class ColaboradorRepository {
                 .setParameter(3, colaborador.getCpf())
                 .executeUpdate();
 
-        return buscarColaboradorPorId(colaborador.getId());
+        return colaborador;
     }
 
     @Transactional
@@ -136,4 +138,5 @@ public class ColaboradorRepository {
             return 0;
         }
     }
+
 }
