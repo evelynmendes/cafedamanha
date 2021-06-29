@@ -13,8 +13,13 @@ public class WebController {
 		return "index";
 	}
 	
-	@GetMapping("/cadastrar")
-	public String cadastrar() {
-		return "/page/cadastrar";
+	@GetMapping("/colaborador")
+	public String colaborador() {
+		return "/page/colaborador";
+	}
+	
+	@GetMapping("/produto")
+	public String produto() {
+		return "/page/produto";
 	}
 }

@@ -32,6 +32,7 @@ body {
 	margin: auto;
 }
 
+
 a:link {
 	font-weight: bold;
 	color: #7F00FF;
@@ -67,8 +68,14 @@ a:active {
 	font-family: sans-serif;
 	font-weight: bold;
 	width: 600px;
-	padding-top: 10px;
+	padding-top: 6px;
 	text-align: justify;
+	margin: auto;
+}
+
+#formulario{
+	padding: 5px;
+	width: 450px;
 	margin: auto;
 }
 
@@ -101,4 +108,5 @@ p{
 	height: 220px;
 	border: 10px ridge gray;
 }
+
 

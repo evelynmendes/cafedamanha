@@ -2,49 +2,56 @@
 <html>
 
 <head>
-	<title>Wl-Home</title>
-	
-	<meta charset="utf-8">
-	
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="css/estilo.css">
+<title>Wl-Home</title>
+
+<meta charset="utf-8">
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="css/estilo.css">
 </head>
 
 <body>
 
 	<div class="topo">
-		<img src = "/imagens/logo.png" width = "20" height = "20">
+		<img src="/imagens/logo.png" width="20" height="20">
 		<h2>Bom dia!!</h2>
 	</div>
 	<br>
 	<div class="menu">
-		<a href="/">Home</a>|
-		<a href="/cadastrar">Cadastrar</a>|
+		<a href="/">Home</a>| 
+		<a href="/colaborador">Colaborador</a>|
+		<a href="/produto">Produto</a>|
 	</div>
 
 	<div id="corpo">
-		<h4>Lista de café da manhã </h4>
+		<h4>Lista de café da manhã</h4>
 		<hr>
 	</div>
 	<div id="tabela_itens">
-		<table class="table">
-      		<thead class="thead-dark">
-	        <tr>
-	          <th>#</th>
-	          <th>Colaborador</th>
-	          <th>Item</th>
-	        </tr>
-	      </thead>
-	
-	      <tbody>
+		<table class="table table-sm">
+			<thead class="thead-dark">
+				<tr>
+					<th>#</th>
+					<th>Colaborador</th>
+					<th>Item</th>
+				</tr>
+			</thead>
 
-	     </tbody>
+			<tbody id="tabela_itens">
+
+			</tbody>
 	</div>
-	
 
-<script src = "/js/script.js"></script>
+<script src="/js/script.js"></script>
+	<script>
 
-
+		$(function() {
+			carregar_cafe_da_manha();
+		});
+	</script>
 </body>
 </html>

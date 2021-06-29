@@ -1,9 +1,9 @@
 package br.com.wl.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import br.com.wl.model.Colaborador;
-import br.com.wl.model.ListaCafe;
+import br.com.wl.model.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,18 +11,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ListaCafeDTO {
+public class ProdutoDTO {
 
+	@NotNull(message = "Campo obrigatório")
+	private Integer idColaborador;
 
 	@NotBlank(message = "Campo obrigatório")
 	private String nomeItem;	
-	
-	@NotBlank(message = "Campo obrigatório")
-	private Colaborador lista;
-	
-	public ListaCafeDTO(ListaCafe x) {
+
+	public ProdutoDTO(Produto x) {
 		this.nomeItem = x.getNomeItem();
-		this.lista= x.getLista();
 	}
 
 }

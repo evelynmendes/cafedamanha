@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 import br.com.wl.model.Colaborador;
-import br.com.wl.model.ListaCafe;
+import br.com.wl.model.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,10 +24,11 @@ public class ColaboradorDTO {
 
 	@NotBlank
 	private String nome;
+	
 
 	public ColaboradorDTO(Colaborador x) {
 		this.cpf = x.getCpf();
-		this.nome = x.getNome();		
+		this.nome = x.getNome();
 	}
 
 

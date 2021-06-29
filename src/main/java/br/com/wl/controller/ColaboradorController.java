@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequestMapping(value = "/api/colaboradores", produces = "application/json")
+@RequestMapping(value = "/api/colaborador", produces = "application/json")
 @RestController
 @RequiredArgsConstructor
 public class ColaboradorController {
@@ -52,23 +52,14 @@ public class ColaboradorController {
 		return ResponseEntity.ok().body(colaborador);
 	}
 
-	@GetMapping(value = "/{cpf}")
-	public ResponseEntity<Optional<Colaborador>> consultarPorCpf(@PathVariable String cpf) {
-		Optional<Colaborador> colaborador = colaboradorService.consultarPorCpf(cpf);
-		return ResponseEntity.ok().body(colaborador);
-	}
 
 	@PostMapping
-	public ResponseEntity<Colaborador> inserir(@Valid @RequestBody ColaboradorDTO colaboradorDto,
-			String cpf) {
-		Optional<Colaborador> busca = colaboradorService.consultarPorCpf(cpf);
-
-		if (busca != null) {
-			throw new RuntimeException("Colaborador já cadastrado");
-		}
+	public ResponseEntity<Colaborador> inserir(@Valid @RequestBody ColaboradorDTO colaboradorDto) {
 
 		Colaborador colaborador = colaboradorService.inserir(colaboradorDto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{cpf}").buildAndExpand(colaborador.getId())
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(colaborador.getId())
 				.toUri();
 		return ResponseEntity.created(uri).body(colaborador);
 

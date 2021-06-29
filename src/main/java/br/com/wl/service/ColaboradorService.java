@@ -3,12 +3,12 @@ package br.com.wl.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.wl.dto.ColaboradorDTO;
 import br.com.wl.model.Colaborador;
 import br.com.wl.repository.ColaboradorRepository;
+import br.com.wl.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -17,7 +17,7 @@ public class ColaboradorService {
 
 
 	private final ColaboradorRepository colaboradorRepository;
-
+	
 	public List<Colaborador> consultar() {
 		List<Colaborador> colaborador = colaboradorRepository.consultar();
 		return colaborador;
@@ -26,12 +26,6 @@ public class ColaboradorService {
 	public Optional<Colaborador> consultarPorId(Integer id) {
 		final Optional<Colaborador> colaborador = Optional
 				.of(colaboradorRepository.consultarPorId(id).orElseThrow(() -> new RuntimeException("Not Found")));
-		return colaborador;
-	}
-
-	public Optional<Colaborador> consultarPorCpf(String cpf) {
-		final Optional<Colaborador> colaborador = Optional
-				.of(colaboradorRepository.consultarPorId(cpf).orElseThrow(() -> new RuntimeException("Not Found")));
 		return colaborador;
 	}
 
