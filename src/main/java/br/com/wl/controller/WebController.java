@@ -17,13 +17,13 @@ public class WebController {
 
 	@GetMapping("/colaboradores")
 	public String colaboradores() {
-		return "/page/colaboradores";
+		return "colaboradores";
 	}
 
 	@GetMapping("/colaboradores/{id}")
 	public String produtos(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("colaboradorId",id);
-		return "/page/produtos";
+		return "produtos";
 	}
 
 
