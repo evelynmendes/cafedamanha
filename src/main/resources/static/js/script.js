@@ -129,7 +129,7 @@ function cadastrar_produto(){
         data: JSON.stringify(produto),
         success: function(result) {
             alert("Colaborador incluído com sucesso");
-            window.location.href = "/colaboradores";
+            window.location.href = "/colaboradores/" + id;
         },
         fail: function(jqXHR, textStatus) {
             console.log(jqXHR);
