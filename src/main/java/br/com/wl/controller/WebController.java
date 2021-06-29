@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class WebController {
 
 	@GetMapping
-	public String index() {
-		return "index";
+	public String home() {
+		return "home";
 	}
 
 	@GetMapping("/colaboradores")
