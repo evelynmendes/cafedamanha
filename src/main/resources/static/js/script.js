@@ -23,9 +23,9 @@ function carregar_colaboradores() {
             $('#tabela_itens').append('<td>' + this.id + '</td>');
             $('#tabela_itens').append('<td>' + this.nome + '</td>');
             $('#tabela_itens').append('<td>' + this.cpf + '</td>');
-            $('#tabela_itens').append('<td><button onclick="listar_produtos(' + this.id + ')">Produtos</button></td>');
-            $('#tabela_itens').append('<td><button onclick="atualizar_colaborador(' + this.id + ')">Atualizar</button></td>');
-            $('#tabela_itens').append('<td><button onclick="remover_colaborador(' + this.id + ')">Remover</button></td>');
+            $('#tabela_itens').append('<td><button class="btn btn-outline-primary btn-sm" onclick="listar_produtos(' + this.id + ')">Produtos</button></td>');
+            $('#tabela_itens').append('<td><button class="btn btn-outline-primary btn-sm" onclick="atualizar_colaborador(' + this.id + ')">Atualizar</button></td>');
+            $('#tabela_itens').append('<td><button class="btn btn-outline-primary btn-sm" onclick="remover_colaborador(' + this.id + ')">Remover</button></td>');
             $('#tabela_itens').append('</tr>');
         });
     });
@@ -61,8 +61,8 @@ function carregar_produtos(id) {
             $('#tabela_itens').append('<tr>');
             $('#tabela_itens').append('<td>' + colaborador.lista[i].id + '</td>');
             $('#tabela_itens').append('<td>' + colaborador.lista[i].nomeItem + '</td>');
-            $('#tabela_itens').append('<td><button onclick="atualizar_produto('+ colaborador.lista[i].id + ')">Atualizar</button></td>');
-            $('#tabela_itens').append('<td><button onclick="remover_produto(' + colaborador.id + ',' + colaborador.lista[i].id + ')">Remover</button></td>');
+            $('#tabela_itens').append('<td><button class="btn btn-outline-primary btn-sm" onclick="atualizar_produto('+ colaborador.lista[i].id + ')">Atualizar</button></td>');
+            $('#tabela_itens').append('<td><button class="btn btn-outline-primary btn-sm" onclick="remover_produto(' + colaborador.id + ',' + colaborador.lista[i].id + ')">Remover</button></td>');
             $('#tabela_itens').append('</tr>');
         }
     });
@@ -143,7 +143,7 @@ function onlynumber(evt) {
    var key = theEvent.keyCode || theEvent.which;
    key = String.fromCharCode( key );
    //var regex = /^[0-9.,]+$/;
-   var regex = /^[0-9.]+$/;
+   var regex = /^[0-9] {11} +$/;
    if( !regex.test(key) ) {
       theEvent.returnValue = false;
       if(theEvent.preventDefault) theEvent.preventDefault();
