@@ -18,53 +18,52 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ProdutoService {
 
-	private final ProdutoRepository produtoRepository;
 	private final ColaboradorRepository colaboradorRepository;
+	private final ProdutoRepository repository;
 
 	public List<Produto> consultar() {
-		List<Produto> produto = produtoRepository.consultar();
+		List<Produto> listaCafe = repository.listarProdutos();
+		return listaCafe;
+	}
+
+	public Produto consultarPorId(Integer id) {
+		final Produto produto = Optional.ofNullable(repository.buscarProdutoPorId(id))
+				.orElseThrow(() -> new RuntimeException("Not Found"));
+		return produto;
+	}
+	
+	public Produto consultarPorItem(String nomeItem) {
+		final Produto produto = Optional.ofNullable(repository.buscarProdutoPorNome(nomeItem))
+				.orElseThrow(() -> new RuntimeException("Not Found"));
 		return produto;
 	}
 
-	public Optional<Produto> consultarPorId(Integer id) {
-		final Optional<Produto> colaborador = Optional
-				.of(produtoRepository.consultarPorId(id).orElseThrow(() -> new RuntimeException("Not Found")));
-		return colaborador;
-	}
-	
-	public Optional<Produto> consultarPorItem(String nomeItem) {
-		final Optional<Produto> colaborador = Optional
-				.of(produtoRepository.consultarPorItem(nomeItem).orElseThrow(() -> new RuntimeException("Not Found")));
-		return colaborador;
-	}
-
 	public Produto inserir(final ProdutoDTO produtoDTO) {
-		Colaborador colaborador = colaboradorRepository.consultarPorId(produtoDTO.getIdColaborador())
+		Colaborador colaborador = Optional
+				.ofNullable(colaboradorRepository.buscarColaboradorPorId(produtoDTO.getIdColaborador()))
 				.orElseThrow(() -> new RuntimeException("Colaborador Not Found"));
 
-		produtoRepository.consultarPorItem(produtoDTO.getNomeItem().toUpperCase())
+		Optional.ofNullable(repository.buscarProdutoPorNome(produtoDTO.getNomeItem().toUpperCase()))
 				.ifPresent(p -> {
 					throw new RuntimeException("Already saved");
 				});
 
-		colaborador.setId(colaborador.getId());
-		colaborador.setNome(colaborador.getNome());
-		colaborador.setCpf(colaborador.getCpf());
 		Produto produto = new Produto();
 		produto.setNomeItem(produtoDTO.getNomeItem().toUpperCase());
-		colaborador.getLista().add(produto);
-		colaboradorRepository.save(colaborador);
-		colaboradorRepository.flush();
-		return colaborador.getLista().stream().filter(item -> item.equals(produto)).findFirst().get();
-	}
-
-	public Produto atualizar(Produto produto) {
-		produtoRepository.save(produto);
+		produto = repository.inserirProduto(produto, produtoDTO.getIdColaborador());
 		return produto;
 	}
 
+	public Produto atualizar(Integer id, ProdutoDTO produtoDTO) {
+		Produto produto = Optional.ofNullable(repository.buscarProdutoPorId(id))
+				.orElseThrow(() -> new RuntimeException("Not Found"));
+
+		produto.setNomeItem(produtoDTO.getNomeItem());
+		return repository.atualizarProduto(produto);
+	}
+
 	public void deletar(Integer id) {
-		produtoRepository.deleteById(id);
+		repository.removerProduto(id);
 	}
 
 }

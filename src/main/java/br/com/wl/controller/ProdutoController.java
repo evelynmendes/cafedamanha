@@ -30,19 +30,19 @@ public class ProdutoController {
 	private final ProdutoService produtoService;
 	 
 	@GetMapping 
-	public ResponseEntity<List<Produto>> consultar(){
-		List<Produto> produto = produtoService.consultar();
-		return ResponseEntity.ok().body(produto);
+	public ResponseEntity<List<Produto>> consultar() {
+		List<Produto> listaCafe = produtoService.consultar();
+		return ResponseEntity.ok().body(listaCafe);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Optional<Produto>> consultarPorId(@PathVariable Integer id) {
-		Optional<Produto> produto = produtoService.consultarPorId(id);
-		return ResponseEntity.ok().body(produto); 
+	public ResponseEntity<Produto> consultarPorId(@PathVariable Integer id) {
+		Produto produto = produtoService.consultarPorId(id);
+		return ResponseEntity.ok().body(produto);
 	}	
 	
 	@PostMapping
-	public ResponseEntity<Produto> inserir(@Valid @RequestBody ProdutoDTO produtoDTO){
+	public ResponseEntity<Produto> inserir(@Valid @RequestBody ProdutoDTO produtoDTO) {
 		Produto produto = produtoService.inserir(produtoDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}")
@@ -53,17 +53,12 @@ public class ProdutoController {
 	
 	@PutMapping(value="/{id}")
 	public ResponseEntity<Produto> atualizar(@PathVariable Integer id, @RequestBody ProdutoDTO produtoDTO) {
-		
-		return produtoService.consultarPorId(id)
-		           .map(produto -> {
-		        	   produto.setNomeItem(produtoDTO.getNomeItem());
-		        	   Produto atualizado = produtoService.atualizar(produto);
-		               return ResponseEntity.ok().body(atualizado);
-		           }).orElse(ResponseEntity.notFound().build());
+		Produto produto = produtoService.atualizar(id, produtoDTO);
+		return ResponseEntity.ok().body(produto);
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> deletar(@PathVariable Integer id){
+	public ResponseEntity<Void> deletar(@PathVariable Integer id) {
 		produtoService.deletar(id);
 		return ResponseEntity.noContent().build();
 	}

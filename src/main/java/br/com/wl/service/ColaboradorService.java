@@ -8,45 +8,50 @@ import org.springframework.stereotype.Service;
 import br.com.wl.dto.ColaboradorDTO;
 import br.com.wl.model.Colaborador;
 import br.com.wl.repository.ColaboradorRepository;
-import br.com.wl.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class ColaboradorService {
 
-	private final ColaboradorRepository colaboradorRepository;
+	private final ColaboradorRepository repository;
 
 	public List<Colaborador> consultar() {
-		List<Colaborador> colaborador = colaboradorRepository.consultar();
+		List<Colaborador> colaborador = repository.listarColaboradores();
 		return colaborador;
 	}
 
-	public Optional<Colaborador> consultarPorId(Integer id) {
-		final Optional<Colaborador> colaborador = Optional
-				.of(colaboradorRepository.consultarPorId(id).orElseThrow(() -> new RuntimeException("Not Found")));
+	public Colaborador consultarPorId(Integer id) {
+		final Colaborador colaborador = Optional
+				.ofNullable(repository.buscarColaboradorPorId(id))
+				.orElseThrow(() -> new RuntimeException("Not Found"));
 		return colaborador;
 	}
 
-	public Colaborador inserir(ColaboradorDTO colaboradorDto) {
-		Optional<Colaborador> busca = colaboradorRepository.consultarPorCPF(colaboradorDto.getCpf());
+	public Colaborador inserir(ColaboradorDTO colaboradorDTO) {
+		Colaborador busca = repository.buscarColaboradorPorCPF(colaboradorDTO.getCpf());
 
-		busca.ifPresent(c -> {
+		if (busca != null) {
 			throw new RuntimeException("Colaborador já cadastrado");
-		});
+		};
 
 		final Colaborador colaborador = new Colaborador();
-		colaborador.setCpf(colaboradorDto.getCpf());
-		colaborador.setNome(colaboradorDto.getNome());
-		return colaboradorRepository.save(colaborador);
+		colaborador.setCpf(colaboradorDTO.getCpf());
+		colaborador.setNome(colaboradorDTO.getNome().toUpperCase());
+		return repository.inserirColaborador(colaborador);
 	}
 
-	public Colaborador atualizar(Colaborador colaborador) {
-		return colaboradorRepository.save(colaborador);
+	public Colaborador atualizar(Integer id, ColaboradorDTO colaboradorDTO) {
+		final Colaborador colaborador = Optional.ofNullable(repository.buscarColaboradorPorId(id))
+				.orElseThrow(() -> new RuntimeException("Not Found"));
+
+		colaborador.setNome(colaboradorDTO.getNome());
+		colaborador.setCpf(colaboradorDTO.getCpf());
+		return repository.atualizarColaborador(colaborador);
 	}
 
 	public void deletar(Integer id) {
-		colaboradorRepository.deleteById(id);
+		repository.removerColaborador(id);
 	}
 
 }

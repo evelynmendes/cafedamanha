@@ -38,8 +38,6 @@ public class ColaboradorController {
 
 	private final ColaboradorService colaboradorService;
 
-	Logger logger = Logger.getLogger(ColaboradorRepository.class);
-
 	@GetMapping
 	public ResponseEntity<List<Colaborador>> consultar() {
 		List<Colaborador> colaborador = colaboradorService.consultar();
@@ -47,8 +45,8 @@ public class ColaboradorController {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Optional<Colaborador>> consultarPorId(@PathVariable Integer id) {
-		Optional<Colaborador> colaborador = colaboradorService.consultarPorId(id);
+	public ResponseEntity<Colaborador> consultarPorId(@PathVariable Integer id) {
+		Colaborador colaborador = colaboradorService.consultarPorId(id);
 		return ResponseEntity.ok().body(colaborador);
 	}
 
@@ -63,14 +61,10 @@ public class ColaboradorController {
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Colaborador> atualizar(@PathParam("id") Integer id,
-			@RequestBody ColaboradorDTO colaboradorDto) {
+			@RequestBody ColaboradorDTO colaboradorDTO) {
 
-		return colaboradorService.consultarPorId(id).map(colaborador -> {
-			colaborador.setCpf(colaboradorDto.getCpf());
-			colaborador.setNome(colaboradorDto.getNome());
-			Colaborador atualizado = colaboradorService.atualizar(colaborador);
-			return ResponseEntity.ok().body(atualizado);
-		}).orElse(ResponseEntity.notFound().build());
+		Colaborador colaborador = colaboradorService.atualizar(id, colaboradorDTO);
+		return ResponseEntity.ok().body(colaborador);
 	}
 
 	@DeleteMapping(value = "/{id}")
@@ -78,5 +72,4 @@ public class ColaboradorController {
 		colaboradorService.deletar(id);
 		return ResponseEntity.noContent().build();
 	}
-
 }

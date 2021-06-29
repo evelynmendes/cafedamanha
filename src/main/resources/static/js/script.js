@@ -7,7 +7,6 @@ function carregar_cafe_da_manha() {
                 $('#tabela_itens').append('<tr>');
                 $('#tabela_itens').append('<td>' + this.id + '</td>');
                 $('#tabela_itens').append('<td>' + this.nome + '</td>');
-                $('#tabela_itens').append('<td>' + this.cpf + '</td>');
                 $('#tabela_itens').append('<td>' + this.produtos[i].nomeItem + '</td>');
                 $('#tabela_itens').append('</tr>');
             }
@@ -24,9 +23,9 @@ function carregar_colaboradores() {
             $('#tabela_itens').append('<td>' + this.id + '</td>');
             $('#tabela_itens').append('<td>' + this.nome + '</td>');
             $('#tabela_itens').append('<td>' + this.cpf + '</td>');
-            $('#tabela_itens').append('<td><button class="btn btn-outline-primary btn-sm" onclick="listar_produtos(' + this.id + ')">Produtos</button></td>');
-            $('#tabela_itens').append('<td><button class="btn btn-outline-primary btn-sm" onclick="atualizar_colaborador(' + this.id + ')">Atualizar</button></td>');
-            $('#tabela_itens').append('<td><button class="btn btn-outline-primary btn-sm" onclick="remover_colaborador(' + this.id + ')">Remover</button></td>');
+            $('#tabela_itens').append('<td><button onclick="listar_produtos(' + this.id + ')">Produtos</button></td>');
+            $('#tabela_itens').append('<td><button onclick="atualizar_colaborador(' + this.id + ')">Atualizar</button></td>');
+            $('#tabela_itens').append('<td><button onclick="remover_colaborador(' + this.id + ')">Remover</button></td>');
             $('#tabela_itens').append('</tr>');
         });
     });
@@ -62,8 +61,8 @@ function carregar_produtos(id) {
             $('#tabela_itens').append('<tr>');
             $('#tabela_itens').append('<td>' + colaborador.lista[i].id + '</td>');
             $('#tabela_itens').append('<td>' + colaborador.lista[i].nomeItem + '</td>');
-            $('#tabela_itens').append('<td><button class="btn btn-outline-primary btn-sm" onclick="atualizar_produto('+ colaborador.lista[i].id + ')">Atualizar</button></td>');
-            $('#tabela_itens').append('<td><button class="btn btn-outline-primary btn-sm" onclick="remover_produto(' + colaborador.id + ',' + colaborador.lista[i].id + ')">Remover</button></td>');
+            $('#tabela_itens').append('<td><button onclick="atualizar_produto('+ colaborador.lista[i].id + ')">Atualizar</button></td>');
+            $('#tabela_itens').append('<td><button onclick="remover_produto(' + colaborador.id + ',' + colaborador.lista[i].id + ')">Remover</button></td>');
             $('#tabela_itens').append('</tr>');
         }
     });
@@ -129,7 +128,7 @@ function cadastrar_produto(){
         data: JSON.stringify(produto),
         success: function(result) {
             alert("Colaborador incluído com sucesso");
-            window.location.href = "/colaboradores/" + id;
+            window.location.href = "/colaboradores";
         },
         fail: function(jqXHR, textStatus) {
             console.log(jqXHR);
